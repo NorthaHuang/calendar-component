@@ -3,7 +3,7 @@ import Head from 'next/head';
 import type { AppProps } from 'next/app';
 
 import NormalizeCSS from '@styles/NormalizeCSS';
-import GlobalStyle from '@styles/GlobalStyle';
+// import GlobalStyle from '@styles/GlobalStyle';
 
 const MyApp: FC<AppProps> = ({ Component, pageProps }) => (
   <>
@@ -16,7 +16,7 @@ const MyApp: FC<AppProps> = ({ Component, pageProps }) => (
 
     {/* Global Styles */}
     <NormalizeCSS />
-    <GlobalStyle />
+    {/* <GlobalStyle /> */}
 
     <Component {...pageProps} />
   </>
