@@ -19,31 +19,26 @@ const DateBody: FC = () => {
   const dateArray = [];
   {
     const monthLength = getMonthLength(draftDate);
-    // eslint-disable-next-line no-plusplus
-    for (let i = 1; i <= monthLength; i++) {
+    for (let i = 1; i <= monthLength; i += 1) {
       rawDateArray.push(i);
     }
 
     const firstDay = getDayOfFirstDate(draftDate);
     const lastMonthLastDate = getLastDateOfLastMonth(draftDate);
     if (firstDay !== 0) {
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < firstDay; i++) {
+      for (let i = 0; i < firstDay; i += 1) {
         rawDateArray.unshift(lastMonthLastDate - i);
       }
     }
 
     const remainLength = 42 - rawDateArray.length;
-    // eslint-disable-next-line no-plusplus
-    for (let i = 1; i <= remainLength; i++) {
+    for (let i = 1; i <= remainLength; i += 1) {
       rawDateArray.push(i);
     }
 
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 6; i += 1) {
       const tempArray = [];
-      // eslint-disable-next-line no-plusplus
-      for (let j = 0; j < 7; j++) {
+      for (let j = 0; j < 7; j += 1) {
         tempArray.push(rawDateArray[0]);
         rawDateArray = rawDateArray.slice(1, rawDateArray.length);
       }
