@@ -10,6 +10,7 @@ export type CalendarContextValueType = {
   draftDate: Date;
   setDraftDate: Dispatch<SetStateAction<Date>>;
   calendarMode: CalendarMode;
+  setCalendarMode: Dispatch<SetStateAction<CalendarMode>>;
 } & Pick<CalendarProps, 'onSelect'>;
 
 export const CalendarContext = createContext<CalendarContextValueType>(

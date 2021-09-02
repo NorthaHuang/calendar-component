@@ -14,7 +14,7 @@ const Calendar: FC<CalendarProps> = ({ date = new Date(), onSelect }) => {
   // A local variable for record user browse journal; a data for display.
   const [draftDate, setDraftDate] = useState(date);
   // Store the state that which calendar body should display.
-  const [calendarMode] = useState(CalendarMode.DATE);
+  const [calendarMode, setCalendarMode] = useState(CalendarMode.DATE);
 
   // When user select a date, draft should be the same date for display.
   useEffect(() => setDraftDate(outputDate), [outputDate]);
@@ -30,6 +30,7 @@ const Calendar: FC<CalendarProps> = ({ date = new Date(), onSelect }) => {
             draftDate,
             setDraftDate,
             calendarMode,
+            setCalendarMode,
           }}
         >
           <NavBar />
