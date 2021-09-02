@@ -1,7 +1,7 @@
-/* eslint-disable no-case-declarations */
 import { MONTH_MAP } from '../../constant';
 import type { CalendarContextValueType } from '../../context';
 import { CalendarMode } from '../../enum';
+import { getYearDecade } from '../../helpers/getYearDecade';
 
 type ContextDataType = Pick<
   CalendarContextValueType,
@@ -21,8 +21,8 @@ export const getStatusButtonText: GetStatusButtonTextType = (contextData) => {
 
   switch (calendarMode) {
     case CalendarMode.YEAR:
-      const year = draftDate.getFullYear().toString();
-      const yearDecade = year.slice(0, year.length - 1);
+      // eslint-disable-next-line no-case-declarations
+      const yearDecade = getYearDecade(draftDate);
       return `${yearDecade}0-${yearDecade}9`;
     case CalendarMode.MONTH:
       return draftDate.getFullYear().toString();
