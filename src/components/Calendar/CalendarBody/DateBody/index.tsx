@@ -1,74 +1,105 @@
+import { useContext } from 'react';
 import type { FC } from 'react';
 
 import { DateBodyWrapper } from './style';
+import {
+  getDayOfFirstDate,
+  getMonthLength,
+  getLastDateOfLastMonth,
+  isSameDay,
+} from './helpers';
 import { BodyRow } from '../../style';
+import { CalendarContext } from '../../context';
 
-const DateBody: FC = () => (
-  <DateBodyWrapper>
-    <BodyRow>
-      <b>Su</b>
-      <b>Mo</b>
-      <b>Tu</b>
-      <b>We</b>
-      <b>Th</b>
-      <b>Fr</b>
-      <b>Sa</b>
-    </BodyRow>
-    <BodyRow>
-      <button type="button">1</button>
-      <button type="button">2</button>
-      <button type="button">3</button>
-      <button type="button">4</button>
-      <button type="button">5</button>
-      <button type="button">6</button>
-      <button type="button">7</button>
-    </BodyRow>
-    <BodyRow>
-      <button type="button">8</button>
-      <button type="button">9</button>
-      <button type="button">10</button>
-      <button type="button">11</button>
-      <button type="button">12</button>
-      <button type="button">13</button>
-      <button type="button">14</button>
-    </BodyRow>
-    <BodyRow>
-      <button type="button">15</button>
-      <button type="button">16</button>
-      <button type="button">17</button>
-      <button type="button">18</button>
-      <button type="button">19</button>
-      <button type="button">20</button>
-      <button type="button">21</button>
-    </BodyRow>
-    <BodyRow>
-      <button type="button">22</button>
-      <button type="button">23</button>
-      <button type="button">24</button>
-      <button type="button">25</button>
-      <button type="button">26</button>
-      <button type="button">27</button>
-      <button type="button">28</button>
-    </BodyRow>
-    <BodyRow>
-      <button type="button">29</button>
-      <button type="button">30</button>
-      <button type="button">31</button>
-      <button type="button">1</button>
-      <button type="button">2</button>
-      <button type="button">3</button>
-      <button type="button">4</button>
-    </BodyRow>
-    <BodyRow>
-      <button type="button">5</button>
-      <button type="button">6</button>
-      <button type="button">7</button>
-      <button type="button">8</button>
-      <button type="button">9</button>
-      <button type="button">10</button>
-      <button type="button">11</button>
-    </BodyRow>
-  </DateBodyWrapper>
-);
+const DateBody: FC = () => {
+  const { onSelect, setOutputDate, draftDate } = useContext(CalendarContext);
+
+  // TODO: Refactoring
+  let rawDateArray = [];
+  const dateArray = [];
+  {
+    const monthLength = getMonthLength(draftDate);
+    // eslint-disable-next-line no-plusplus
+    for (let i = 1; i <= monthLength; i++) {
+      rawDateArray.push(i);
+    }
+
+    const firstDay = getDayOfFirstDate(draftDate);
+    const lastMonthLastDate = getLastDateOfLastMonth(draftDate);
+    if (firstDay !== 0) {
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < firstDay; i++) {
+        rawDateArray.unshift(lastMonthLastDate - i);
+      }
+    }
+
+    const remainLength = 42 - rawDateArray.length;
+    // eslint-disable-next-line no-plusplus
+    for (let i = 1; i <= remainLength; i++) {
+      rawDateArray.push(i);
+    }
+
+    // eslint-disable-next-line no-plusplus
+    for (let i = 0; i < 6; i++) {
+      const tempArray = [];
+      // eslint-disable-next-line no-plusplus
+      for (let j = 0; j < 7; j++) {
+        tempArray.push(rawDateArray[0]);
+        rawDateArray = rawDateArray.slice(1, rawDateArray.length);
+      }
+      dateArray.push(tempArray);
+    }
+  }
+
+  return (
+    <DateBodyWrapper>
+      <BodyRow>
+        <b>Su</b>
+        <b>Mo</b>
+        <b>Tu</b>
+        <b>We</b>
+        <b>Th</b>
+        <b>Fr</b>
+        <b>Sa</b>
+      </BodyRow>
+      {dateArray.map((row, index) => (
+        <BodyRow key={`row-${index.toString()}`}>
+          {row.map((dateNumber) => (
+            <button
+              type="button"
+              key={`${index.toString()}-${dateNumber}`}
+              onClick={() => {
+                let selectedMonth = draftDate.getMonth();
+                if ((index === 4 || index === 5) && dateNumber < 15) {
+                  selectedMonth += 1;
+                } else if ((index === 0 || index === 1) && dateNumber > 15) {
+                  selectedMonth -= 1;
+                }
+
+                const selectedDate = new Date(
+                  draftDate.getFullYear(),
+                  selectedMonth,
+                  dateNumber,
+                );
+                if (isSameDay(selectedDate, draftDate)) {
+                  return;
+                }
+
+                /* Output */
+                setOutputDate(selectedDate);
+                // User Callback
+                if (onSelect) {
+                  onSelect(selectedDate);
+                }
+              }}
+            >
+              {dateNumber}
+            </button>
+          ))}
+        </BodyRow>
+      ))}
+    </DateBodyWrapper>
+  );
+};
 
 export default DateBody;
