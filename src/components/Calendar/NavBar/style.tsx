@@ -12,10 +12,19 @@ export const NavBarWrapper = styled.nav`
 
 export const StatusButton = styled.button.attrs({ type: 'button' })`
   flex: 1;
+  && {
+    margin: auto 0.6em;
+  }
 
   > b {
     font-size: 1.1em;
     line-height: 2;
+  }
+
+  @media (min-width: 1024px) {
+    &:hover {
+      background-color: #eee;
+    }
   }
 `;
 
