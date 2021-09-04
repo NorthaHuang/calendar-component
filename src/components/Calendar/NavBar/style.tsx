@@ -5,7 +5,7 @@ import { getArrowDegree } from './helpers/getArrowDegree';
 import { CalendarMode } from '../enum';
 
 export const NavBarWrapper = styled.nav`
-  margin: 0.5em 0;
+  margin: 0.28em 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,7 +30,7 @@ export const StatusButton = styled.button.attrs({
   }
 
   > b {
-    font-size: 1.1em;
+    font-size: 1em;
     line-height: 2;
   }
 
@@ -40,7 +40,7 @@ export const StatusButton = styled.button.attrs({
       calendarMode !== CalendarMode.YEAR &&
       css`
         &:hover {
-          background-color: #eee;
+          background-color: ${({ theme: { palette } }) => palette.gray};
         }
       `}
   }
@@ -61,7 +61,7 @@ export const ArrowButton = styled.button.attrs({
     margin: auto;
     border-width: 1px 1px 0 0;
     border-style: solid;
-    border-color: #000;
+    border-color: ${({ theme: { palette } }) => palette.text};
     transform: rotate(${getArrowDegree}deg) translate(-20%, 20%);
     position: absolute;
     top: 0;

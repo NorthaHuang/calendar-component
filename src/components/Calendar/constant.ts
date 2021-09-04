@@ -1,3 +1,5 @@
+export const WEEK_MAP = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+
 export const MONTH_MAP = [
   'Jan',
   'Feb',

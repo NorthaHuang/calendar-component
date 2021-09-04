@@ -7,12 +7,26 @@ import {
   getMonthLength,
   getLastDateOfLastMonth,
   isSameDay,
+  isLastMonthDate,
+  isThisMonthDate,
+  isNextMonthDate,
 } from './helpers';
-import { BodyRow } from '../../style';
+import { BodyRow, Button } from '../style';
+import { isThisYearThisMonth } from '../helpers/isThisYearThisMonth';
 import { CalendarContext } from '../../context';
+import { WEEK_MAP } from '../../constant';
+
+const todayDate = new Date();
 
 const DateBody: FC = () => {
-  const { onSelect, setOutputDate, draftDate } = useContext(CalendarContext);
+  const { onSelect, outputDate, setOutputDate, draftDate } =
+    useContext(CalendarContext);
+
+  const IsThisYearThisMonth = isThisYearThisMonth(draftDate, todayDate);
+
+  const isOutputYearOutputMonty =
+    draftDate.getFullYear() === outputDate.getFullYear() &&
+    draftDate.getMonth() === outputDate.getMonth();
 
   // TODO: Refactoring
   let rawDateArray = [];
@@ -46,50 +60,65 @@ const DateBody: FC = () => {
     }
   }
 
+  const dateClickHandler = (rowIndex: number, dateNumber: number) => {
+    // Check the selected date is in last, this or next month
+    let selectedMonth = draftDate.getMonth();
+    if (isNextMonthDate(rowIndex, dateNumber)) {
+      selectedMonth += 1;
+    } else if (isLastMonthDate(rowIndex, dateNumber)) {
+      selectedMonth -= 1;
+    }
+
+    // Get the selected date object
+    const selectedDate = new Date(
+      draftDate.getFullYear(),
+      selectedMonth,
+      dateNumber,
+    );
+
+    // If selectedDate is same as draftDate then do nothing for prevent re-render.
+    if (isSameDay(selectedDate, draftDate)) {
+      return;
+    }
+
+    /* Output */
+    setOutputDate(selectedDate);
+    // User Callback
+    if (onSelect) {
+      onSelect(selectedDate);
+    }
+  };
+
   return (
     <DateBodyWrapper>
+      {/* Week Row */}
       <BodyRow>
-        <b>Su</b>
-        <b>Mo</b>
-        <b>Tu</b>
-        <b>We</b>
-        <b>Th</b>
-        <b>Fr</b>
-        <b>Sa</b>
+        {WEEK_MAP.map((weekName) => (
+          <b key={weekName}>{weekName}</b>
+        ))}
       </BodyRow>
-      {dateArray.map((row, index) => (
-        <BodyRow key={`row-${index.toString()}`}>
+
+      {/* Date Row */}
+      {dateArray.map((row, rowIndex) => (
+        <BodyRow key={`row-${rowIndex.toString()}`}>
           {row.map((dateNumber) => (
-            <button
-              type="button"
-              key={`${index.toString()}-${dateNumber}`}
-              onClick={() => {
-                let selectedMonth = draftDate.getMonth();
-                if ((index === 4 || index === 5) && dateNumber < 15) {
-                  selectedMonth += 1;
-                } else if ((index === 0 || index === 1) && dateNumber > 15) {
-                  selectedMonth -= 1;
-                }
-
-                const selectedDate = new Date(
-                  draftDate.getFullYear(),
-                  selectedMonth,
-                  dateNumber,
-                );
-                if (isSameDay(selectedDate, draftDate)) {
-                  return;
-                }
-
-                /* Output */
-                setOutputDate(selectedDate);
-                // User Callback
-                if (onSelect) {
-                  onSelect(selectedDate);
-                }
-              }}
+            <Button
+              key={`${rowIndex.toString()}-${dateNumber}`}
+              isToday={
+                IsThisYearThisMonth &&
+                dateNumber === todayDate.getDate() &&
+                isThisMonthDate(rowIndex, dateNumber)
+              } // For render red color text
+              isSelectedDate={
+                isOutputYearOutputMonty &&
+                dateNumber === outputDate.getDate() &&
+                // prevent select the same date number twice
+                isThisMonthDate(rowIndex, dateNumber)
+              } // For render red circle background
+              onClick={() => dateClickHandler(rowIndex, dateNumber)}
             >
               {dateNumber}
-            </button>
+            </Button>
           ))}
         </BodyRow>
       ))}

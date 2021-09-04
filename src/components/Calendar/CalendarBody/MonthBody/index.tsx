@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import type { FC } from 'react';
 
-import { BodyRow, Column4Wrapper } from '../../style';
+import { BodyRow, Column4Wrapper } from '../style';
 import { CalendarContext } from '../../context';
 import { MONTH_MAP } from '../../constant';
 import { CalendarMode } from '../../enum';

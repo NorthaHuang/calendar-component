@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
 import type { FC } from 'react';
+import { ThemeProvider } from 'styled-components';
 
 import type { CalendarProps } from './type';
 import { CalendarWrapper } from './style';
+import theme from './theme';
 import { CalendarContext } from './context';
 import { CalendarMode } from './enum';
 import NavBar from './NavBar';
@@ -19,20 +21,20 @@ const Calendar: FC<CalendarProps> = ({ date = new Date(), onSelect }) => {
   // When user select a date, draft should be the same date for display.
   useEffect(() => setDraftDate(outputDate), [outputDate]);
 
+  const contextDefaultValue = {
+    onSelect,
+    outputDate,
+    setOutputDate,
+    draftDate,
+    setDraftDate,
+    calendarMode,
+    setCalendarMode,
+  };
+
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <CalendarWrapper>
-        <CalendarContext.Provider
-          value={{
-            onSelect,
-            outputDate,
-            setOutputDate,
-            draftDate,
-            setDraftDate,
-            calendarMode,
-            setCalendarMode,
-          }}
-        >
+        <CalendarContext.Provider value={contextDefaultValue}>
           <NavBar />
           <CalendarBody calendarMode={calendarMode} />
         </CalendarContext.Provider>
@@ -49,7 +51,7 @@ const Calendar: FC<CalendarProps> = ({ date = new Date(), onSelect }) => {
           outputDate.getMonth() + 1
         }-${outputDate.getDate()} (${outputDate.getDay()})`}
       </p>
-    </>
+    </ThemeProvider>
   );
 };
 

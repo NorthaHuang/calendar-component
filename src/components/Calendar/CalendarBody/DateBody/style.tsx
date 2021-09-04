@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const DATE_BOX_SIZE = '1.75em';
+const DATE_BOX_SIZE = '2.17em';
 export const DateBodyWrapper = styled.div`
   b,
   button {
