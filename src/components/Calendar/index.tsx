@@ -39,18 +39,6 @@ const Calendar: FC<CalendarProps> = ({ date = new Date(), onSelect }) => {
           <CalendarBody calendarMode={calendarMode} />
         </CalendarContext.Provider>
       </CalendarWrapper>
-      <p>
-        Draft Date:{' '}
-        {`${draftDate.getFullYear()}-${
-          draftDate.getMonth() + 1
-        }-${draftDate.getDate()} (${draftDate.getDay()})`}
-      </p>
-      <p>
-        Output Date:{' '}
-        {`${outputDate.getFullYear()}-${
-          outputDate.getMonth() + 1
-        }-${outputDate.getDate()} (${outputDate.getDay()})`}
-      </p>
     </ThemeProvider>
   );
 };
