@@ -22,7 +22,7 @@ export const Column4Wrapper = styled.div`
 
 type ButtonProps = {
   isToday?: boolean;
-  isSelectedDate: boolean;
+  isSelected: boolean;
 };
 export const Button = styled.button.attrs({ type: 'button' })<ButtonProps>`
   z-index: 1;
@@ -53,8 +53,8 @@ export const Button = styled.button.attrs({ type: 'button' })<ButtonProps>`
         color: ${({ theme: { palette } }) => palette.select};
       `}
 
-    ${({ isSelectedDate }) =>
-      isSelectedDate &&
+    ${({ isSelected }) =>
+      isSelected &&
       css`
         color: ${({ theme: { palette } }) => palette.background};
         &:before {

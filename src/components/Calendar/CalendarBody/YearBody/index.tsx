@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import type { FC } from 'react';
 
-import { BodyRow, Column4Wrapper } from '../style';
+import { BodyRow, Column4Wrapper, Button } from '../style';
 import { getYearDecade } from '../../helpers/getYearDecade';
 import { CalendarContext } from '../../context';
 import { CalendarMode } from '../../enum';
@@ -9,6 +9,8 @@ import { CalendarMode } from '../../enum';
 const YearBody: FC = () => {
   const { draftDate, setDraftDate, setCalendarMode } =
     useContext(CalendarContext);
+
+  const thisYear = draftDate.getFullYear();
 
   /* For Render */
   // Get years array
@@ -41,13 +43,13 @@ const YearBody: FC = () => {
       {groupedYears.map((row) => (
         <BodyRow key={row[0]}>
           {row.map((yearNumber) => (
-            <button
-              type="button"
+            <Button
               key={yearNumber}
+              isSelected={yearNumber === thisYear}
               onClick={() => yearClickHandler(yearNumber)}
             >
               {yearNumber}
-            </button>
+            </Button>
           ))}
         </BodyRow>
       ))}

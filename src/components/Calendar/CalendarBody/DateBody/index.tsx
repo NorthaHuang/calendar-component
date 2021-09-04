@@ -109,7 +109,7 @@ const DateBody: FC = () => {
                 dateNumber === todayDate.getDate() &&
                 isThisMonthDate(rowIndex, dateNumber)
               } // For render red color text
-              isSelectedDate={
+              isSelected={
                 isOutputYearOutputMonty &&
                 dateNumber === outputDate.getDate() &&
                 // prevent select the same date number twice

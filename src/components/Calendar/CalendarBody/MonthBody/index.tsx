@@ -37,7 +37,7 @@ const MonthBody: FC = () => {
             return (
               <Button
                 key={monthName}
-                isSelectedDate={isThisYearThisMonth(
+                isSelected={isThisYearThisMonth(
                   draftDate,
                   new Date(draftDate.getFullYear(), monthIndex),
                 )}
