@@ -1,14 +1,18 @@
 import styled, { css } from 'styled-components';
 
-export const BodyRow = styled.div`
+export const BodyRow = styled.div.attrs({ className: 'bodyRow' })`
   margin: 0.14em 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
-const COLUMN_4_BOX_SIZE = '3.5em';
+const COLUMN_4_BOX_SIZE = '3.25em';
 export const Column4Wrapper = styled.div`
+  .bodyRow {
+    margin: 0.57em 0;
+  }
+
   button {
     width: ${COLUMN_4_BOX_SIZE};
     height: ${COLUMN_4_BOX_SIZE};

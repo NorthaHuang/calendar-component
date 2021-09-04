@@ -1,7 +1,8 @@
 import { useContext } from 'react';
 import type { FC } from 'react';
 
-import { BodyRow, Column4Wrapper } from '../style';
+import { BodyRow, Column4Wrapper, Button } from '../style';
+import { isThisYearThisMonth } from '../helpers/isThisYearThisMonth';
 import { CalendarContext } from '../../context';
 import { MONTH_MAP } from '../../constant';
 import { CalendarMode } from '../../enum';
@@ -34,13 +35,16 @@ const MonthBody: FC = () => {
           {row.map((monthIndex) => {
             const monthName = MONTH_MAP[monthIndex];
             return (
-              <button
-                type="button"
+              <Button
                 key={monthName}
+                isSelectedDate={isThisYearThisMonth(
+                  draftDate,
+                  new Date(draftDate.getFullYear(), monthIndex),
+                )}
                 onClick={() => monthClickHandler(monthIndex)}
               >
                 {monthName}
-              </button>
+              </Button>
             );
           })}
         </BodyRow>
