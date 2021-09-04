@@ -21,6 +21,7 @@ export const Column4Wrapper = styled.div`
 `;
 
 type ButtonProps = {
+  isOutOfBounds?: boolean;
   isToday?: boolean;
   isSelected: boolean;
 };
@@ -47,6 +48,12 @@ export const Button = styled.button.attrs({ type: 'button' })<ButtonProps>`
 
   // for over the CSS specificity that on "<CalendarWrapper /> > button"
   && {
+    ${({ isOutOfBounds = false }) =>
+      isOutOfBounds &&
+      css`
+        color: ${({ theme: { palette } }) => palette.gray};
+      `}
+
     ${({ isToday = false }) =>
       isToday &&
       css`

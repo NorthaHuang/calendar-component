@@ -11,10 +11,10 @@ const YearBody: FC = () => {
     useContext(CalendarContext);
 
   const thisYear = draftDate.getFullYear();
+  const yearsDecade = getYearDecade(draftDate);
 
   /* For Render */
   // Get years array
-  const yearsDecade = getYearDecade(draftDate);
   const firstYear = +`${yearsDecade}0` - 1;
   const years = [];
   for (let i = 0; i < 12; i += 1) {
@@ -45,6 +45,7 @@ const YearBody: FC = () => {
           {row.map((yearNumber) => (
             <Button
               key={yearNumber}
+              isOutOfBounds={yearNumber.toString().indexOf(yearsDecade) !== 0}
               isSelected={yearNumber === thisYear}
               onClick={() => yearClickHandler(yearNumber)}
             >

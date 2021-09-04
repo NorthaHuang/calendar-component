@@ -104,6 +104,10 @@ const DateBody: FC = () => {
           {row.map((dateNumber) => (
             <Button
               key={`${rowIndex.toString()}-${dateNumber}`}
+              isOutOfBounds={
+                isLastMonthDate(rowIndex, dateNumber) ||
+                isNextMonthDate(rowIndex, dateNumber)
+              }
               isToday={
                 IsThisYearThisMonth &&
                 dateNumber === todayDate.getDate() &&
