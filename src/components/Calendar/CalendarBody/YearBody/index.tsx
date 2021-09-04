@@ -7,10 +7,8 @@ import { CalendarContext } from '../../context';
 import { CalendarMode } from '../../enum';
 
 const YearBody: FC = () => {
-  const { draftDate, setDraftDate, setCalendarMode } =
+  const { draftDate, setDraftDate, outputDate, setCalendarMode } =
     useContext(CalendarContext);
-
-  const thisYear = draftDate.getFullYear();
   const yearsDecade = getYearDecade(draftDate);
 
   /* For Render */
@@ -46,7 +44,7 @@ const YearBody: FC = () => {
             <Button
               key={yearNumber}
               isOutOfBounds={yearNumber.toString().indexOf(yearsDecade) !== 0}
-              isSelected={yearNumber === thisYear}
+              isSelected={yearNumber === outputDate.getFullYear()}
               onClick={() => yearClickHandler(yearNumber)}
             >
               {yearNumber}

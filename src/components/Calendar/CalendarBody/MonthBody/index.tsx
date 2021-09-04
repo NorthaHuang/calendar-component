@@ -8,7 +8,7 @@ import { MONTH_MAP } from '../../constant';
 import { CalendarMode } from '../../enum';
 
 const MonthBody: FC = () => {
-  const { draftDate, setDraftDate, setCalendarMode } =
+  const { draftDate, setDraftDate, outputDate, setCalendarMode } =
     useContext(CalendarContext);
 
   // For Render
@@ -39,7 +39,7 @@ const MonthBody: FC = () => {
                 key={monthName}
                 isSelected={isThisYearThisMonth(
                   draftDate,
-                  new Date(draftDate.getFullYear(), monthIndex),
+                  new Date(outputDate.getFullYear(), monthIndex),
                 )}
                 onClick={() => monthClickHandler(monthIndex)}
               >
