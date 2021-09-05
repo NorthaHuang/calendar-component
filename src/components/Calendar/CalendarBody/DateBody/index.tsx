@@ -6,7 +6,6 @@ import {
   getDayOfFirstDate,
   getMonthLength,
   getLastDateOfLastMonth,
-  isSameDay,
   isLastMonthDate,
   isThisMonthDate,
   isNextMonthDate,
@@ -15,12 +14,12 @@ import { BodyRow, Button } from '../style';
 import { isThisYearThisMonth } from '../helpers/isThisYearThisMonth';
 import { CalendarContext } from '../../context';
 import { WEEK_MAP } from '../../constant';
+import { isSameDay } from '../../helpers/isSameDay';
 
 const todayDate = new Date();
 
 const DateBody: FC = () => {
-  const { onSelect, outputDate, setOutputDate, draftDate } =
-    useContext(CalendarContext);
+  const { outputDate, setOutputDate, draftDate } = useContext(CalendarContext);
 
   const IsThisYearThisMonth = isThisYearThisMonth(draftDate, todayDate);
 
@@ -83,10 +82,6 @@ const DateBody: FC = () => {
 
     /* Output */
     setOutputDate(selectedDate);
-    // User Callback
-    if (onSelect) {
-      onSelect(selectedDate);
-    }
   };
 
   return (

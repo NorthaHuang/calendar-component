@@ -4,25 +4,54 @@ import { ThemeProvider } from 'styled-components';
 
 import type { CalendarProps } from './type';
 import { CalendarWrapper } from './style';
+import { isSameDay, isValidDateObject, getDateObject } from './helpers';
 import theme from './theme';
 import { CalendarContext } from './context';
 import { CalendarMode } from './enum';
 import NavBar from './NavBar';
 import CalendarBody from './CalendarBody';
 
-const Calendar: FC<CalendarProps> = ({ date = new Date(), onSelect }) => {
+const Calendar: FC<CalendarProps> = ({
+  display = false,
+  date = new Date(),
+  onSelect,
+}) => {
   // The date that user selected.
-  const [outputDate, setOutputDate] = useState(date);
+  const [outputDate, setOutputDate] = useState(getDateObject(date));
   // A local variable for record user browse journal; a data for display.
-  const [draftDate, setDraftDate] = useState(date);
+  const [draftDate, setDraftDate] = useState(getDateObject(date));
   // Store the state that which calendar body should display.
   const [calendarMode, setCalendarMode] = useState(CalendarMode.DATE);
 
-  // When user select a date, draft should be the same date for display.
-  useEffect(() => setDraftDate(outputDate), [outputDate]);
+  useEffect(() => {
+    if (!isValidDateObject(date)) {
+      if (isValidDateObject(outputDate)) {
+        return;
+      }
+      setOutputDate(new Date());
+      return;
+    }
+    if (isSameDay(getDateObject(date), outputDate)) {
+      return;
+    }
+
+    setOutputDate(getDateObject(date));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [date]);
+
+  // onSelect
+  useEffect(() => {
+    if (isSameDay(outputDate, draftDate)) {
+      return;
+    }
+    if (onSelect) {
+      onSelect(outputDate);
+    }
+    setDraftDate(outputDate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [outputDate]);
 
   const contextDefaultValue = {
-    onSelect,
     outputDate,
     setOutputDate,
     draftDate,
@@ -33,12 +62,12 @@ const Calendar: FC<CalendarProps> = ({ date = new Date(), onSelect }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <CalendarWrapper>
-        <CalendarContext.Provider value={contextDefaultValue}>
+      <CalendarContext.Provider value={contextDefaultValue}>
+        <CalendarWrapper display={display}>
           <NavBar />
           <CalendarBody calendarMode={calendarMode} />
-        </CalendarContext.Provider>
-      </CalendarWrapper>
+        </CalendarWrapper>
+      </CalendarContext.Provider>
     </ThemeProvider>
   );
 };

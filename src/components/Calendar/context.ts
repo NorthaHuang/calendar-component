@@ -11,7 +11,7 @@ export type CalendarContextValueType = {
   setDraftDate: Dispatch<SetStateAction<Date>>;
   calendarMode: CalendarMode;
   setCalendarMode: Dispatch<SetStateAction<CalendarMode>>;
-} & Pick<CalendarProps, 'onSelect'>;
+};
 
 export const CalendarContext = createContext<CalendarContextValueType>(
   {} as CalendarContextValueType,
