@@ -4,12 +4,24 @@ import { ThemeProvider } from 'styled-components';
 
 import theme from '@src/theme';
 import Calendar from '@components/Calendar';
+import { getIsoStringWithoutTimes } from '@helpers/getIsoStringWithoutTimes';
+import { isValidDateObject } from '@helpers/isValidDateObject';
 
 import { Input } from './Input';
 import { DatePickerWrapper, CalendarWrapper } from './style';
 
-const DatePicker: FC = () => {
-  const [dateString, setDateString] = useState('');
+type DatePickerProps = {
+  defaultDate?: string;
+  onSelect?: (date: Date) => void;
+};
+
+const today = new Date();
+
+const DatePicker: FC<DatePickerProps> = ({
+  defaultDate = getIsoStringWithoutTimes(today),
+  onSelect,
+}) => {
+  const [dateString, setDateString] = useState(defaultDate);
   const [isFocus, setIsFocus] = useState(false);
 
   return (
@@ -25,11 +37,13 @@ const DatePicker: FC = () => {
             display={isFocus}
             date={dateString}
             onSelect={(date) => {
-              setDateString(
-                `${date.getFullYear()}-${
-                  date.getMonth() + 1
-                }-${date.getDate()}`,
-              );
+              if (!isValidDateObject(date)) {
+                return;
+              }
+              if (onSelect) {
+                onSelect(date);
+              }
+              setDateString(getIsoStringWithoutTimes(date));
               setIsFocus(false);
             }}
           />

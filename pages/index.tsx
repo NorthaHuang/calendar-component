@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import Calendar from '@components/Calendar';
 import DatePicker from '@components/DatePicker';
+import { getIsoStringWithoutTimes } from '@helpers/getIsoStringWithoutTimes';
 
 /* Styled Component */
 
@@ -28,6 +29,7 @@ const Header = styled(Box)`
 
 const HomePage: NextPage = () => {
   const [calendarDate, setCalendarDate] = useState('');
+
   return (
     <>
       <Header>
@@ -39,13 +41,7 @@ const HomePage: NextPage = () => {
           <Calendar
             display
             date={calendarDate}
-            onSelect={(date) =>
-              setCalendarDate(
-                `${date.getFullYear()}-${
-                  date.getMonth() + 1
-                }-${date.getDate()}`,
-              )
-            }
+            onSelect={(date) => setCalendarDate(getIsoStringWithoutTimes(date))}
           />
           <p>Selected Date: {calendarDate}</p>
         </Box>

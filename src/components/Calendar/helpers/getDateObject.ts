@@ -1,5 +1,5 @@
-import { isValidDateObject } from './isValidDateObject';
-import type { PassingDateType } from '../type';
+import { isValidDateObject } from '@helpers/isValidDateObject';
+import type { PassingDateType } from '@type/PassingDateType';
 
 type GetDateObjectType = (date: PassingDateType) => Date;
 
