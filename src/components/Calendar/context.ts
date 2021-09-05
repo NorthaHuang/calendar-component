@@ -2,7 +2,6 @@ import { createContext } from 'react';
 import type { Dispatch, SetStateAction } from 'react';
 
 import { CalendarMode } from './enum';
-import type { CalendarProps } from './type';
 
 export type CalendarContextValueType = {
   outputDate: Date;

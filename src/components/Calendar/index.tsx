@@ -2,10 +2,11 @@ import { useState, useEffect } from 'react';
 import type { FC } from 'react';
 import { ThemeProvider } from 'styled-components';
 
+import theme from '@src/theme';
+
 import type { CalendarProps } from './type';
 import { CalendarWrapper } from './style';
 import { isSameDay, isValidDateObject, getDateObject } from './helpers';
-import theme from './theme';
 import { CalendarContext } from './context';
 import { CalendarMode } from './enum';
 import NavBar from './NavBar';
@@ -41,11 +42,11 @@ const Calendar: FC<CalendarProps> = ({
 
   // onSelect
   useEffect(() => {
-    if (isSameDay(outputDate, draftDate)) {
-      return;
-    }
     if (onSelect) {
       onSelect(outputDate);
+    }
+    if (isSameDay(outputDate, draftDate)) {
+      return;
     }
     setDraftDate(outputDate);
     // eslint-disable-next-line react-hooks/exhaustive-deps

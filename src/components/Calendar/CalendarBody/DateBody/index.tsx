@@ -14,7 +14,6 @@ import { BodyRow, Button } from '../style';
 import { isThisYearThisMonth } from '../helpers/isThisYearThisMonth';
 import { CalendarContext } from '../../context';
 import { WEEK_MAP } from '../../constant';
-import { isSameDay } from '../../helpers/isSameDay';
 
 const todayDate = new Date();
 
@@ -74,11 +73,6 @@ const DateBody: FC = () => {
       selectedMonth,
       dateNumber,
     );
-
-    // If selectedDate is same as draftDate then do nothing for prevent re-render.
-    if (isSameDay(selectedDate, draftDate)) {
-      return;
-    }
 
     /* Output */
     setOutputDate(selectedDate);
