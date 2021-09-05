@@ -1,4 +1,4 @@
-export type PassingDateType = string | number | Date;
+import type { PassingDateType } from '@type/PassingDateType';
 
 export type CalendarProps = {
   display?: boolean;

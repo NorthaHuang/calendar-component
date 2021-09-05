@@ -3,10 +3,12 @@ import type { FC } from 'react';
 import { ThemeProvider } from 'styled-components';
 
 import theme from '@src/theme';
+import { isValidDateObject } from '@helpers/isValidDateObject';
+import { isSameDay } from '@helpers/isSameDay';
 
 import type { CalendarProps } from './type';
 import { CalendarWrapper } from './style';
-import { isSameDay, isValidDateObject, getDateObject } from './helpers';
+import { getDateObject } from './helpers';
 import { CalendarContext } from './context';
 import { CalendarMode } from './enum';
 import NavBar from './NavBar';

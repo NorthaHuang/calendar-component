@@ -1,4 +1,4 @@
-import type { PassingDateType } from '../type';
+import type { PassingDateType } from '@type/PassingDateType';
 
 type IsValidDateObjectType = (date: PassingDateType) => boolean;
 
@@ -18,7 +18,7 @@ export const isValidDateObject: IsValidDateObjectType = (date) => {
     return (
       dateStringArray.length === 3 &&
       dateStringArray.every(
-        (dateString) => typeof +dateString === 'number' && dateString !== '',
+        (dateString) => typeof +dateString === 'number' && +dateString !== 0,
       )
     );
   }
