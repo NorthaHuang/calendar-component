@@ -1,7 +1,7 @@
 import type { NextPage } from 'next';
 
-import Calendar from '@components/Calendar';
+import DatePicker from '@components/DatePicker';
 
-const HomePage: NextPage = () => <Calendar />;
+const HomePage: NextPage = () => <DatePicker />;
 
 export default HomePage;

@@ -4,6 +4,7 @@ const theme = {
     background: '#ffffff',
     text: '#000000',
     gray: '#eeeeee',
+    focus: '#4d90fe',
   },
 };
 

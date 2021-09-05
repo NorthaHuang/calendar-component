@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
-export const CalendarWrapper = styled.div`
+type CalendarWrapperProps = {
+  display: boolean;
+};
+export const CalendarWrapper = styled.div<CalendarWrapperProps>`
   width: 100%;
   max-width: 12em;
   padding: 0.57em 0.35em;
@@ -11,7 +14,7 @@ export const CalendarWrapper = styled.div`
    * Change the whole calendar size proportionally.
    */
   font-size: 16px;
-  display: inline-block;
+  display: ${({ display }) => (display ? 'block' : 'none')};
   background-color: ${({ theme: { palette } }) => palette.background};
 
   &,

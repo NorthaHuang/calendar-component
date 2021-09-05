@@ -6,7 +6,6 @@ import {
   getDayOfFirstDate,
   getMonthLength,
   getLastDateOfLastMonth,
-  isSameDay,
   isLastMonthDate,
   isThisMonthDate,
   isNextMonthDate,
@@ -19,8 +18,7 @@ import { WEEK_MAP } from '../../constant';
 const todayDate = new Date();
 
 const DateBody: FC = () => {
-  const { onSelect, outputDate, setOutputDate, draftDate } =
-    useContext(CalendarContext);
+  const { outputDate, setOutputDate, draftDate } = useContext(CalendarContext);
 
   const IsThisYearThisMonth = isThisYearThisMonth(draftDate, todayDate);
 
@@ -76,17 +74,8 @@ const DateBody: FC = () => {
       dateNumber,
     );
 
-    // If selectedDate is same as draftDate then do nothing for prevent re-render.
-    if (isSameDay(selectedDate, draftDate)) {
-      return;
-    }
-
     /* Output */
     setOutputDate(selectedDate);
-    // User Callback
-    if (onSelect) {
-      onSelect(selectedDate);
-    }
   };
 
   return (

@@ -1,4 +1,7 @@
+export type PassingDateType = string | number | Date;
+
 export type CalendarProps = {
-  date?: Date;
+  display?: boolean;
+  date?: PassingDateType;
   onSelect?: (date: Date) => void;
 };
