@@ -58,7 +58,7 @@ const DateBody: FC = () => {
     }
   }
 
-  const dateClickHandler = (rowIndex: number, dateNumber: number) => {
+  const dateClickHandler = (rowIndex: number, dateNumber: number): void => {
     // Check the selected date is in last, this or next month
     let selectedMonth = draftDate.getMonth();
     if (isNextMonthDate(rowIndex, dateNumber)) {

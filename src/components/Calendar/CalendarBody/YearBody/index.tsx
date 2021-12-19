@@ -29,7 +29,7 @@ const YearBody: FC = () => {
     groupedYears.push(tempArr);
   }
 
-  const yearClickHandler = (yearNumber: number) => {
+  const yearClickHandler = (yearNumber: number): void => {
     setDraftDate(
       new Date(yearNumber, draftDate.getMonth(), draftDate.getDate()),
     );

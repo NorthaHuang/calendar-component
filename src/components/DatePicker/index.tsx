@@ -1,3 +1,4 @@
+/* eslint-disable react/require-default-props */
 import { useState } from 'react';
 import type { FC } from 'react';
 import { ThemeProvider } from 'styled-components';

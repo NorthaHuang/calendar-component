@@ -11,7 +11,7 @@ const NavBar: FC = () => {
   const { draftDate, setDraftDate, calendarMode, setCalendarMode } =
     useContext(CalendarContext);
 
-  const statusButtonClickHandler = () => {
+  const statusButtonClickHandler = (): void => {
     // eslint-disable-next-line default-case
     switch (calendarMode) {
       case CalendarMode.MONTH:
@@ -23,7 +23,7 @@ const NavBar: FC = () => {
     }
   };
 
-  const arrowButtonClickHandler = (direction: ClickDirectionType) => {
+  const arrowButtonClickHandler = (direction: ClickDirectionType): void => {
     const thisYear = draftDate.getFullYear();
 
     switch (calendarMode) {

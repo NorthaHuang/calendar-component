@@ -21,7 +21,7 @@ const MonthBody: FC = () => {
     groupedMonthIndex.push(tempArr);
   }
 
-  const monthClickHandler = (monthIndex: number) => {
+  const monthClickHandler = (monthIndex: number): void => {
     setDraftDate(
       new Date(draftDate.getFullYear(), monthIndex, draftDate.getDate()),
     );
