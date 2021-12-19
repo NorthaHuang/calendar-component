@@ -20,14 +20,6 @@ yarn dev
 
 3. Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Build the codes
-
-```bash
-npm run build
-#or
-yarn build
-```
-
 ## Calendar API
 
 |Name    |Type                         |Default   |Description                                   |
